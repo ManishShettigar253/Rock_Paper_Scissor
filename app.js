@@ -16,8 +16,12 @@ const getCompChoice = () => {
     return options[randIdx];
 };
 
-const displayWinnerModal = (winner) => {
-    winnerMessage.innerText = `${winner} wins! Congratulations!`;
+const displayWinnerModal = (winner, userChoice, compChoice) => {
+    if (winner === "You") {
+        winnerMessage.innerText = `${winner} wins! Congratulations!`;
+    } else {
+        winnerMessage.innerText = `Better luck next time! ${compChoice} beats your ${userChoice}`;
+    }
     modal.style.display = "flex";
 };
 
@@ -41,10 +45,10 @@ const showWinner = (userWin, userChoice, compChoice) => {
 
     // Check for a winner
     if (userScore === 3) {
-        displayWinnerModal("You");
+        displayWinnerModal("You", userChoice, compChoice);
         resetGame();
     } else if (compScore === 3) {
-        displayWinnerModal("Computer");
+        displayWinnerModal("Computer", userChoice, compChoice);
         resetGame();
     }
 };
