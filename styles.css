@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -17,6 +18,7 @@ h1 {
     align-items: center;
     gap: 3rem;
     margin-top: 5rem;
+    flex-wrap: wrap;
 }
 
 .choice {
@@ -64,6 +66,7 @@ img {
     font-size: 2rem;
     padding: 1rem;
     border-radius: 1rem;
+    text-align: center;
 }
 
 .msg-container {
@@ -78,6 +81,21 @@ img {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+}
+
+button {
+    background-color: #081b31;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0a3c55;
 }
 
 .modal {
@@ -99,6 +117,9 @@ img {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    max-width: 400px; /* Responsive width */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
 
 .close {
@@ -113,4 +134,36 @@ img {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    .choices {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .choice {
+        width: 120px;
+        height: 120px;
+    }
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+
+    #msg, #user-score, #comp-score {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
 }
