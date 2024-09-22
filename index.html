@@ -1,36 +1,32 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stone paper Scissor</title>
-
+    <title>Stone Paper Scissors</title>
     <link href="styles.css" rel="stylesheet">
-
 </head>
 <body>
-    <h1>Stone paper Scissor</h1>
+    <h1>Stone Paper Scissors</h1>
 
     <div class="choices">
         <div class="choice" id="rock">
-            <img src="./images/rock.webp">
+            <img src="./images/rock.webp" alt="Rock">
         </div>
         <div class="choice" id="paper">
-            <img src="./images/paper.webp">
+            <img src="./images/paper.webp" alt="Paper">
         </div>
-        <div class="choice" id="scissor">
-            <img src="./images/scissor.jpg">
+        <div class="choice" id="scissors">
+            <img src="./images/scissor.jpg" alt="Scissors">
         </div>
     </div>
 
     <div class="score-board">
-        <div class="score" >
+        <div class="score">
             <p id="user-score">0</p>
             <p>You</p>
         </div>
-        <div class="score" >
+        <div class="score">
             <p id="comp-score">0</p>
             <p>Comp</p>
         </div>
@@ -40,7 +36,16 @@
         <p id="msg">Play Your Move!</p>
     </div>
 
+    <div class="controls">
+        <button id="reset-btn">Reset Game</button>
+    </div>
 
+    <div id="winner-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <p id="winner-message"></p>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
