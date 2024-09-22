@@ -3,61 +3,82 @@ let compScore = 0;
 
 const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
-
 const userScorePara = document.querySelector("#user-score");
 const compScorePara = document.querySelector("#comp-score");
+const resetBtn = document.getElementById("reset-btn");
+const modal = document.getElementById("winner-modal");
+const winnerMessage = document.getElementById("winner-message");
+const closeModal = document.getElementById("close-modal");
 
 const getCompChoice = () => {
-  const options = ["rock", "paper", "scissors"];
-  const randIdx = Math.floor(Math.random() * 3);
-  return options[randIdx];
+    const options = ["rock", "paper", "scissors"];
+    const randIdx = Math.floor(Math.random() * 3);
+    return options[randIdx];
+};
+
+const displayWinnerModal = (winner) => {
+    winnerMessage.innerText = `${winner} wins! Congratulations!`;
+    modal.style.display = "flex";
 };
 
 const drawGame = () => {
-  msg.innerText = "Game was Draw. Play again.";
-  msg.style.backgroundColor = "#081b31";
+    msg.innerText = "Game was a Draw. Play again.";
+    msg.style.backgroundColor = "#081b31";
 };
 
 const showWinner = (userWin, userChoice, compChoice) => {
-  if (userWin) {
-    userScore++;
-    userScorePara.innerText = userScore;
-    msg.innerText = `You win! Your ${userChoice} beats ${compChoice}`;
-    msg.style.backgroundColor = "green";
-  } else {
-    compScore++;
-    compScorePara.innerText = compScore;
-    msg.innerText = `You lost. ${compChoice} beats your ${userChoice}`;
-    msg.style.backgroundColor = "red";
-  }
+    if (userWin) {
+        userScore++;
+        userScorePara.innerText = userScore;
+        msg.innerText = `You win! Your ${userChoice} beats ${compChoice}`;
+        msg.style.backgroundColor = "green";
+    } else {
+        compScore++;
+        compScorePara.innerText = compScore;
+        msg.innerText = `You lost. ${compChoice} beats your ${userChoice}`;
+        msg.style.backgroundColor = "red";
+    }
+
+    // Check for a winner
+    if (userScore === 3) {
+        displayWinnerModal("You");
+        resetGame();
+    } else if (compScore === 3) {
+        displayWinnerModal("Computer");
+        resetGame();
+    }
 };
 
 const playGame = (userChoice) => {
-  //Generate computer choice
-  const compChoice = getCompChoice();
-
-  if (userChoice === compChoice) {
-    //Draw Game
-    drawGame();
-  } else {
-    let userWin = true;
-    if (userChoice === "rock") {
-      //scissors, paper
-      userWin = compChoice === "paper" ? false : true;
-    } else if (userChoice === "paper") {
-      //rock, scissors
-      userWin = compChoice === "scissors" ? false : true;
+    const compChoice = getCompChoice();
+    if (userChoice === compChoice) {
+        drawGame();
     } else {
-      //rock, paper
-      userWin = compChoice === "rock" ? false : true;
+        let userWin = (userChoice === "rock" && compChoice === "scissors") ||
+                      (userChoice === "paper" && compChoice === "rock") ||
+                      (userChoice === "scissors" && compChoice === "paper");
+        showWinner(userWin, userChoice, compChoice);
     }
-    showWinner(userWin, userChoice, compChoice);
-  }
+};
+
+const resetGame = () => {
+    userScore = 0;
+    compScore = 0;
+    userScorePara.innerText = userScore;
+    compScorePara.innerText = compScore;
+    msg.innerText = "Play Your Move!";
+    msg.style.backgroundColor = "#081b31";
 };
 
 choices.forEach((choice) => {
-  choice.addEventListener("click", () => {
-    const userChoice = choice.getAttribute("id");
-    playGame(userChoice);
-  });
+    choice.addEventListener("click", () => {
+        const userChoice = choice.getAttribute("id");
+        playGame(userChoice);
+    });
+});
+
+resetBtn.addEventListener("click", resetGame);
+
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
 });
